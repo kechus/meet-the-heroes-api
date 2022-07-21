@@ -32,6 +32,32 @@ paths:
         '5XX':
           $ref: "#/components/responses/UnexpectedError"
 
+  /countries:
+    get:
+      summary: Returns the countries
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filter'
+        '5XX':
+          $ref: "#/components/responses/UnexpectedError"
+  
+  /types:
+    get:
+      summary: Returns all types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filter'
+        '5XX':
+          $ref: "#/components/responses/UnexpectedError"
+
 produces:
   application/json
 consumes:
@@ -103,5 +129,13 @@ components:
       properties:
         clapCount:
           type: number
+
+    Filter:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
 
   
