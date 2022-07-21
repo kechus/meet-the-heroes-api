@@ -1,5 +1,5 @@
 export const NODE_ENV: NodeEnv = (process.env.NODE_ENV as NodeEnv) || 'local';
-export const SERVER_PORT = process.env.SERVER_PORT || 8080;
+export const PORT = process.env.PORT || 8080;
 
 export const MYSQL_DB = process.env.MYSQL_DB!
 export const MYSQL_HOST = process.env.MYSQL_HOST!
