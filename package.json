@@ -9,6 +9,7 @@
 	"scripts": {
 		"start": "node dist/server.js",
 		"build": "tsc",
+		"postinstall": "tsc",
 		"build:production": "tsc --build tsconfig.json",
 		"watch:ts": "tsc -w",
 		"dev:ts": "nodemon -r dotenv/config src/server.ts",
