@@ -1,0 +1,12 @@
+logs
+node_modules
+dist
+
+.env
+yarn-error.log
+/service-account.json
+/firestore-debug.log
+/firebase-debug.log
+/ui-debug.log
+
+/ecosystem.*.config.js

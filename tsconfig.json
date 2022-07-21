@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src",
+		"target": "es6",
+		"module": "commonjs",
+		"strict": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"inlineSourceMap": true,
+		"types": ["node"],
+		"typeRoots": ["node_modules/**/@types", "src/@types"],
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"baseUrl": "./",
+		"paths": {
+			"@api/*": ["src/api/*"],
+				  "@routes/*": ["src/routes/*"],
+				  "@routes": ["src/routes/index"],
+				  "@controllers/*": ["src/api/controllers/*"],
+				  "@middleware/*": ["src/api/middleware/*"],
+				  "@models/*": ["src/models/*"],
+				  "@services/*": ["src/services/*"],
+				  "@repository": ["src/repository/index"],
+				  "@repository/*": ["src/repository/*"],
+				  "@loaders/*": ["src/loaders/*"],
+				  "@validators/*": ["src/validators/*"],
+				  "@config": ["src/config/index"],
+				  "@config/*": ["src/config/*"],
+				  "@util/*": ["src/util/*"],
+				  "@db/*": ["src/db/*"],
+				  "@proto/*": ["src/proto/*"]
+			  }
+	},
+	"exclude": ["node_modules"]
+}
