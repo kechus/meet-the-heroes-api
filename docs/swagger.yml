@@ -73,7 +73,26 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Filter'
+                $ref: '#/components/schemas/ArrayOfStudies'
+        '5XX':
+          $ref: "#/components/responses/UnexpectedError"
+
+  /study/country:
+    get:
+      parameters:
+        - in: query
+          name: idCountry
+          schema:
+            type: integer
+          description: The id of the country
+      summary: Returns studies by countryId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfStudies'
         '5XX':
           $ref: "#/components/responses/UnexpectedError"
 
@@ -156,5 +175,49 @@ components:
           type: number
         name:
           type: string
+
+    ArrayOfStudies:
+      type: array
+      items:
+        $ref: "#/components/schemas/Study"
+
+    Address: 
+      type: object
+      properties:
+        id:
+          type: number
+        contact_address: 
+          type: string
+        lat: 
+          type: number
+        lng: 
+          type: number 
+
+    Study:
+      type: object
+      properties:
+        id: 
+          type: string
+        name: 
+          type: string
+        c_name: 
+          type: string
+        web_address: 
+          type: string
+        date_registration: 
+          type: string
+        study_type_id: 
+          type: number
+        address_id:
+          type: number
+        country_id:
+          type: number
+        address:
+          $ref: "#/components/schemas/Address"
+        studyType:
+          type: string
+        country:
+          type: string
+        
 
   
