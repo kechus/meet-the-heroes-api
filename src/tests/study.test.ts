@@ -40,6 +40,8 @@ describe('Study service', () => {
 			expect(study.translated['Dirección web']).to.not.eql(undefined)
 			expect(study.translated).to.have.property('Ultima fecha de acualización')
 			expect(study.translated['Ultima fecha de acualización']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Dirección')
+			expect(study.translated['Dirección']).to.not.eql(undefined)
 			addressesId.push(study.address.id)
 		}
 		const found = addressesId.find((id,i)=> addressesId.indexOf(id) != i)
@@ -68,6 +70,8 @@ describe('Study service', () => {
 			expect(study.translated['Dirección web']).to.not.eql(undefined)
 			expect(study.translated).to.have.property('Ultima fecha de acualización')
 			expect(study.translated['Ultima fecha de acualización']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Dirección')
+			expect(study.translated['Dirección']).to.not.eql(undefined)
 			addressesId.push(study.address.id)
 		}
 		const found = addressesId.find((id,i)=> addressesId.indexOf(id) != i)

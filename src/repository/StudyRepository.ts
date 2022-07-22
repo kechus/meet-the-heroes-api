@@ -70,6 +70,7 @@ class StudyResource{
 			translated:{
 				'Nombre del estudio': studyData.name,
 				'Nombre Científico': studyData.c_name,
+				'Dirección': addressData.contact_address ,
 				'Tipo de estudio': studyTypeName,
 				'País': countryName,
 				'Dirección web': studyData.web_address,
