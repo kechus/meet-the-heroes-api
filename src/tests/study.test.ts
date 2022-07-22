@@ -28,6 +28,18 @@ describe('Study service', () => {
 			expect(study).to.have.property('name')
 			expect(study).to.have.property('country')
 			expect(study).to.have.property('studyType')
+			expect(study.translated).to.have.property('Nombre del estudio')
+			expect(study.translated['Nombre del estudio']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Nombre Científico')
+			expect(study.translated['Nombre Científico']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Tipo de estudio')
+			expect(study.translated['Tipo de estudio']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('País')
+			expect(study.translated['País']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Dirección web')
+			expect(study.translated['Dirección web']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Ultima fecha de acualización')
+			expect(study.translated['Ultima fecha de acualización']).to.not.eql(undefined)
 			addressesId.push(study.address.id)
 		}
 		const found = addressesId.find((id,i)=> addressesId.indexOf(id) != i)
@@ -35,7 +47,7 @@ describe('Study service', () => {
     })
 
 	it('should rest by country, returning no repeated addres_id',async ()=>{
-		const studies = await StudyRepository.filterStudiesByCountryId(1326)
+		const studies = await StudyRepository.filterStudiesByCountryId(1)
 		const addressesId: number[] = []
 		expect(studies.length).to.not.eql(0)
 		for(const study of studies){
@@ -44,6 +56,18 @@ describe('Study service', () => {
 			expect(study).to.have.property('name')
 			expect(study).to.have.property('country')
 			expect(study).to.have.property('studyType')
+			expect(study.translated).to.have.property('Nombre del estudio')
+			expect(study.translated['Nombre del estudio']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Nombre Científico')
+			expect(study.translated['Nombre Científico']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Tipo de estudio')
+			expect(study.translated['Tipo de estudio']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('País')
+			expect(study.translated['País']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Dirección web')
+			expect(study.translated['Dirección web']).to.not.eql(undefined)
+			expect(study.translated).to.have.property('Ultima fecha de acualización')
+			expect(study.translated['Ultima fecha de acualización']).to.not.eql(undefined)
 			addressesId.push(study.address.id)
 		}
 		const found = addressesId.find((id,i)=> addressesId.indexOf(id) != i)

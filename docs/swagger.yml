@@ -193,6 +193,24 @@ components:
         lng: 
           type: number 
 
+    TranslatedStudy: 
+      type: object
+      properties:
+        'Nombre del estudio': 
+          type: string
+        'Nombre Científico':
+          type: string
+        'Tipo de estudio':
+          type: string
+        'País':
+          type: string
+        'Dirección web': 
+          type: string
+        'Fecha de registro':
+          type: string
+        'Ultima fecha de acualización':
+          type: string 
+
     Study:
       type: object
       properties:
@@ -218,6 +236,8 @@ components:
           type: string
         country:
           type: string
+        translated: 
+          $ref: '#/components/schemas/TranslatedStudy'
         
 
   

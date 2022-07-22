@@ -20,6 +20,9 @@ Study.init({
   date_registration:{
     type: DataTypes.DATEONLY
   },
+  date_updated:{
+    type: DataTypes.DATEONLY
+  },
   study_type_id:{
     type: DataTypes.INTEGER,
     references: 'StudyType',
