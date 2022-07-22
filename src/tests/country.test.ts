@@ -18,12 +18,12 @@ describe('Countries', () => {
 
 	it('should read from db', async ()=>{
 		const countries = await Country.findAll();
-        expect(countries.length).to.eql(920)
+        expect(countries.length).to.eql(155)
 	})
 
 	it('should test endpoint', async ()=>{
 		const response = await chai.request(app).get(`/api/v1/countries`).send();
 		expect(response).have.status(200);
-        expect(response.body.length).to.eql(920)
+        expect(response.body.length).to.eql(155)
 	})
 });
