@@ -28,14 +28,15 @@ export class StudyRepository{
 		return await StudyResource.fromBatch(studies)
 	}
 	
-	static async filterStudiesByAddress(idAddress:number){
+	static async filterStudiesByAddressId(idAddress:number){
 		const studies = await Study.findAll({
 			where:{
 				address_id: idAddress,
 			},
 			order: sequelize.random(),
+			limit: 15
 		})
-		return await StudyResource.fromBatch(studies);
+		return await ShortStudyResource.fromBatch(studies);
 	}
 
 	static async query(){
@@ -77,6 +78,32 @@ class StudyResource{
 				'Fecha de registro': studyData.date_registration,
 				'Ultima fecha de acualización': studyData.date_updated,
 			}
+		}
+	}
+}
+
+class ShortStudyResource{
+	static async fromBatch(studies: Study[]){
+		const resourcedStudies = []
+		for(const study of studies){
+			resourcedStudies.push(await this.from(study))
+		}
+		return resourcedStudies;
+	}
+
+	static async from(study: Study){
+		const studyData = study.get();
+		const studyType = await StudyType.findByPk(studyData.study_type_id); 
+
+		const studyTypeName = studyType!.get().name;
+
+		return {
+			'Nombre del estudio': studyData.name,
+			'Nombre Científico': studyData.c_name,
+			'Tipo de estudio': studyTypeName,
+			'Dirección web': studyData.web_address,
+			'Fecha de registro': studyData.date_registration,
+			'Ultima fecha de acualización': studyData.date_updated,
 		}
 	}
 }
