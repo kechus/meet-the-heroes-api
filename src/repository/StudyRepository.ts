@@ -2,13 +2,16 @@ import { Address } from "@models/Address";
 import { Country } from "@models/Country"
 import { Study } from "@models/Study";
 import { StudyType } from "@models/StudyType";
+import sequelize from '@loaders/sequelize';
 
 export class StudyRepository{
 	static async filterStudiesByTypeId(idType:number){
 		const studies = await Study.findAll({
 			where: {
 				study_type_id: idType
-			}
+			},
+			group:'address_id',
+			order: sequelize.random()
 		});
 		const betterStudies = []
 		for(const study of studies){
@@ -29,8 +32,10 @@ export class StudyRepository{
 	static async filterStudiesByCountryId(idCountry:number){
 		const studies = await Study.findAll({
 			where:{
-				country_id: idCountry
-			}
+				country_id: idCountry,
+			},
+			order: sequelize.random(),
+			group:'address_id',
 		})
 		const betterStudies = []
 		for(const study of studies){
@@ -47,4 +52,8 @@ export class StudyRepository{
 		}
 		return betterStudies;
 	} 
+
+	static async query(){
+		sequelize.query('', { raw: true });
+	}
 }

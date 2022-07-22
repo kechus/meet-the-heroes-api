@@ -1,6 +1,5 @@
 import sequelize from '@loaders/sequelize';
 import { DataTypes, Model } from "sequelize";
-import { StudyType } from './StudyType';
 
 export class Study extends Model { }
 
