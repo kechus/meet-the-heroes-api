@@ -1,33 +1,42 @@
-import { Address } from "@models/Address";
-import { Country } from "@models/Country"
 import { Study } from "@models/Study";
 import { StudyType } from "@models/StudyType";
 import sequelize from '@loaders/sequelize';
-import { Op } from "sequelize";
 
 export class StudyRepository{
-	static async filterStudiesByTypeId(idType:number){
-		const studies = await Study.findAll({
-			where: {
-				study_type_id: idType,
-				address_id: { [Op.ne]: 1 }
-			},
-			group: 'address_id',
-			limit: 150
-		});
-		return await StudyResource.fromBatch(studies)
+	static async filterStudiesByTypeId(idType:number): Promise<any>{
+		const studies = await sequelize.query(`
+		SELECT st.id, st.name AS name, st.c_name, st.web_address, st.date_registration, 
+		st.date_updated, st.study_type_id, st.address_id, st.country_id, 
+		ct.name AS country, ad.contact_address, ad.lat, ad.lng, stp.name AS studyType  
+		FROM Study AS st
+		INNER JOIN Country AS ct
+		ON ct.id = st.country_id
+		INNER JOIN Address as ad
+		ON ad.id = st.address_id
+		INNER JOIN StudyType as stp
+		ON stp.id = st.study_type_id
+		WHERE st.study_type_id = ${idType}
+		AND st.address_id != 1
+		GROUP BY st.address_id`); 
+		return StudyResource.fromBatch(studies[0])
 	} 
 
-	static async filterStudiesByCountryId(idCountry:number){
-		const studies = await Study.findAll({
-			where:{
-				country_id: idCountry,
-				address_id: {[Op.ne]: 1 },
-			},
-			group:'address_id',
-		})
-
-		return await StudyResource.fromBatch(studies)
+	static async filterStudiesByCountryId(idCountry:number): Promise<any> {
+		const studies = await sequelize.query(`
+		SELECT st.id, st.name AS name, st.c_name, st.web_address, st.date_registration, 
+		st.date_updated, st.study_type_id, st.address_id, st.country_id, 
+		ct.name AS country, ad.contact_address, ad.lat, ad.lng, stp.name AS studyType  
+		FROM Study AS st
+		INNER JOIN Country AS ct
+		ON ct.id = st.country_id
+		INNER JOIN Address as ad
+		ON ad.id = st.address_id
+		INNER JOIN StudyType as stp
+		ON stp.id = st.study_type_id
+		WHERE st.country_id = ${idCountry}
+		AND st.address_id != 1
+		GROUP BY st.address_id`); 
+		return StudyResource.fromBatch(studies[0])
 	}
 	
 	static async filterStudiesByAddressId(idAddress:number){
@@ -35,40 +44,30 @@ export class StudyRepository{
 			where:{
 				address_id: idAddress,
 			},
-			limit: 15
+			limit: 20
 		})
 		return await ShortStudyResource.fromBatch(studies);
-	}
-
-	static async query(){
-		sequelize.query('SELECT * FROM Study where st', { raw: true });
 	}
 }
 
 class StudyResource{
-	static async fromBatch(studies: Study[]){
+	static fromBatch(studies: any[]){
 		const resourcedStudies = []
 		for(const study of studies){
-			resourcedStudies.push(await StudyResource.from(study))
+			resourcedStudies.push(StudyResource.from(study))
 		}
 		return resourcedStudies;
 	}
 
-	static async from(study: Study){
-		const studyData = study.get();
-		const address = await Address.findByPk(studyData.address_id); 
-		const country = await Country.findByPk(studyData.country_id); 
-		const studyType = await StudyType.findByPk(studyData.study_type_id); 
-
-		const addressData = address!.get();
-		const studyTypeName = studyType!.get().name;
-		const countryName = country!.get().name;
-
+	static from(study: any){
 		return {
-			...studyData,
-			address: addressData,
-			studyType: studyTypeName,
-			country: countryName,
+			...study,
+			address:{
+				id: study.address_id,
+				contact_address: study.contact_address,
+				lat: study.lat,
+				lng: study.lng
+			}
 		}
 	}
 }

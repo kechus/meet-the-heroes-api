@@ -205,7 +205,6 @@ components:
       items:
         $ref: "#/components/schemas/ShortStudy"
 
-
     Address: 
       type: object
       properties:
@@ -230,6 +229,8 @@ components:
         web_address: 
           type: string
         date_registration: 
+          type: string
+        date_updated: 
           type: string
         study_type_id: 
           type: number
