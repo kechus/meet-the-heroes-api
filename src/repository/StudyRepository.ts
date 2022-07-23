@@ -40,13 +40,15 @@ export class StudyRepository{
 	}
 	
 	static async filterStudiesByAddressId(idAddress:number){
-		const studies = await Study.findAll({
-			where:{
-				address_id: idAddress,
-			},
-			limit: 20
-		})
-		return await ShortStudyResource.fromBatch(studies);
+		const studies = await sequelize.query(`
+		SELECT st.name AS name, st.c_name, st.web_address, st.date_registration, 
+		st.date_updated, st.study_type_id, stp.name AS studyType  
+		FROM Study AS st
+		INNER JOIN StudyType as stp
+		ON stp.id = st.study_type_id
+		WHERE st.address_id = ${idAddress}
+		LIMIT 20`); 
+		return ShortStudyResource.fromBatch(studies[0]);
 	}
 }
 
@@ -73,23 +75,19 @@ class StudyResource{
 }
 
 class ShortStudyResource{
-	static async fromBatch(studies: Study[]){
+	static fromBatch(studies: any[]){
 		const resourcedStudies = []
 		for(const study of studies){
-			const studyData = study.get();
-			resourcedStudies.push(await this.from(studyData))
+			resourcedStudies.push(this.from(study))
 		}
 		return resourcedStudies;
 	}
 
-	static async from(studyData: any){
-		const studyType = await StudyType.findByPk(studyData.study_type_id); 
-		const studyTypeName = studyType!.get().name;
-
+	static from(studyData: any){
 		return {
 			'Nombre del estudio': studyData.name,
 			'Nombre Científico': studyData.c_name,
-			'Tipo de estudio': studyTypeName,
+			'Tipo de estudio': studyData.studyType,
 			'Dirección web': studyData.web_address,
 			'Fecha de registro': studyData.date_registration,
 			'Ultima fecha de actualización': studyData.date_updated,
