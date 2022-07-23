@@ -10,10 +10,9 @@ export class StudyRepository{
 		const studies = await Study.findAll({
 			where: {
 				study_type_id: idType,
-				address_id: {[Op.ne]: 1 },
+				address_id: { [Op.ne]: 1 }
 			},
 			group: 'address_id',
-			order: sequelize.random()
 		});
 		return await StudyResource.fromBatch(studies)
 	} 
@@ -24,7 +23,6 @@ export class StudyRepository{
 				country_id: idCountry,
 				address_id: {[Op.ne]: 1 },
 			},
-			order: sequelize.random(),
 			group:'address_id',
 		})
 
@@ -36,14 +34,13 @@ export class StudyRepository{
 			where:{
 				address_id: idAddress,
 			},
-			order: sequelize.random(),
 			limit: 15
 		})
 		return await ShortStudyResource.fromBatch(studies);
 	}
 
 	static async query(){
-		sequelize.query('', { raw: true });
+		sequelize.query('SELECT * FROM Study where st', { raw: true });
 	}
 }
 
@@ -95,7 +92,7 @@ class ShortStudyResource{
 			'Tipo de estudio': studyTypeName,
 			'Dirección web': studyData.web_address,
 			'Fecha de registro': studyData.date_registration,
-			'Ultima fecha de acualización': studyData.date_updated,
+			'Ultima fecha de actualización': studyData.date_updated,
 		}
 	}
 }

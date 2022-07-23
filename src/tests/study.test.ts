@@ -12,7 +12,7 @@ import { StudyRepository } from '@repository/StudyRepository';
 
 describe('Study service', () => {
 	let app: any;
-	let idCountry = 19;
+	let idCountry = 3;
 	let idStudy = 2;
 	let idAddress = 2;
 
@@ -99,8 +99,8 @@ describe('Study service', () => {
 			expect(study['Tipo de estudio']).to.not.eql(undefined)
 			expect(study).to.have.property('Dirección web')
 			expect(study['Dirección web']).to.not.eql(undefined)
-			expect(study).to.have.property('Ultima fecha de acualización')
-			expect(study['Ultima fecha de acualización']).to.not.eql(undefined)
+			expect(study).to.have.property('Ultima fecha de actualización')
+			expect(study['Ultima fecha de actualización']).to.not.eql(undefined)
 			expect(study).to.have.property('Fecha de registro')
 			expect(study['Fecha de registro']).to.not.eql(undefined)
 		}
