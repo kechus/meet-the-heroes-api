@@ -96,6 +96,25 @@ paths:
         '5XX':
           $ref: "#/components/responses/UnexpectedError"
 
+  /study/address:
+    get:
+      parameters:
+        - in: query
+          name: idAddress
+          schema:
+            type: integer
+          description: The id of the address
+      summary: Returns Short Studies by addressId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfStudies'
+        '5XX':
+          $ref: "#/components/responses/UnexpectedError"
+
 produces:
   application/json
 consumes:
@@ -181,6 +200,12 @@ components:
       items:
         $ref: "#/components/schemas/Study"
 
+    ArrayOfShortStudies:
+      type: array
+      items:
+        $ref: "#/components/schemas/ShortStudy"
+
+
     Address: 
       type: object
       properties:
@@ -192,26 +217,6 @@ components:
           type: number
         lng: 
           type: number 
-
-    TranslatedStudy: 
-      type: object
-      properties:
-        'Nombre del estudio': 
-          type: string
-        'Nombre Científico':
-          type: string
-        'Tipo de estudio':
-          type: string
-        'País':
-          type: string
-        'Dirección web': 
-          type: string
-        'Fecha de registro':
-          type: string
-        'Ultima fecha de acualización':
-          type: string 
-        'Dirección':
-          type: string
 
     Study:
       type: object
@@ -238,8 +243,20 @@ components:
           type: string
         country:
           type: string
-        translated: 
-          $ref: '#/components/schemas/TranslatedStudy'
-        
 
+    ShortStudy:
+      type: object
+      properties:
+        'Nombre del estudio': 
+          type: string
+        'Nombre Científico':
+          type: string
+        'Tipo de estudio':
+          type: string
+        'Dirección web': 
+          type: string
+        'Fecha de registro':
+          type: string
+        'Ultima fecha de acualización':
+          type: string
   

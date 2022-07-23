@@ -12,7 +12,7 @@ import { StudyRepository } from '@repository/StudyRepository';
 
 describe('Study service', () => {
 	let app: any;
-	let idCountry = 1;
+	let idCountry = 19;
 	let idStudy = 2;
 	let idAddress = 2;
 
@@ -31,20 +31,7 @@ describe('Study service', () => {
 			expect(study).to.have.property('name')
 			expect(study).to.have.property('country')
 			expect(study).to.have.property('studyType')
-			expect(study.translated).to.have.property('Nombre del estudio')
-			expect(study.translated['Nombre del estudio']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Nombre Científico')
-			expect(study.translated['Nombre Científico']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Tipo de estudio')
-			expect(study.translated['Tipo de estudio']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('País')
-			expect(study.translated['País']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Dirección web')
-			expect(study.translated['Dirección web']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Ultima fecha de acualización')
-			expect(study.translated['Ultima fecha de acualización']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Dirección')
-			expect(study.translated['Dirección']).to.not.eql(undefined)
+			expect(study.address.id).to.not.eq(1)
 			addressesId.push(study.address.id)
 		}
 		const found = addressesId.find((id,i)=> addressesId.indexOf(id) != i)
@@ -61,22 +48,7 @@ describe('Study service', () => {
 			expect(study).to.have.property('name')
 			expect(study).to.have.property('country')
 			expect(study).to.have.property('studyType')
-			expect(study.translated).to.have.property('Nombre del estudio')
-			expect(study.translated['Nombre del estudio']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Nombre Científico')
-			expect(study.translated['Nombre Científico']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Tipo de estudio')
-			expect(study.translated['Tipo de estudio']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('País')
-			expect(study.translated['País']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Dirección web')
-			expect(study.translated['Dirección web']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Ultima fecha de acualización')
-			expect(study.translated['Ultima fecha de acualización']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Dirección')
-			expect(study.translated['Dirección']).to.not.eql(undefined)
-			expect(study.translated).to.have.property('Fecha de registro')
-			expect(study.translated['Fecha de registro']).to.not.eql(undefined)
+			expect(study.address.id).to.not.eq(1)
 			addressesId.push(study.address.id)
 		}
 		const found = addressesId.find((id,i)=> addressesId.indexOf(id) != i)
@@ -116,6 +88,7 @@ describe('Study service', () => {
 					.request(app)
 					.get(`/api/v1/study/address?idAddress=${idAddress}`)
 					.send();
+		expect(response).have.status(200);
 		expect(response.body.length).to.not.eql(0)
 		for(const study of response.body){
 			expect(study).to.have.property('Nombre del estudio')
@@ -131,6 +104,5 @@ describe('Study service', () => {
 			expect(study).to.have.property('Fecha de registro')
 			expect(study['Fecha de registro']).to.not.eql(undefined)
 		}
-		expect(response).have.status(200);
 	})
 });
