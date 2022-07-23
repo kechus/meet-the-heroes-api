@@ -13,6 +13,7 @@ export class StudyRepository{
 				address_id: { [Op.ne]: 1 }
 			},
 			group: 'address_id',
+			limit: 150
 		});
 		return await StudyResource.fromBatch(studies)
 	} 
